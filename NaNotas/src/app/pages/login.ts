@@ -4,29 +4,28 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { AuthService } from '.././services/auth.service';
 import { RouterModule } from '@angular/router';
 
-
 @Component({
-  selector: 'app-register',
+  selector: 'app-login',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
-  templateUrl: './register.html',
-  styleUrls: ['./register.scss']
+  templateUrl: './login.html',
+  styleUrls: ['./login.scss']
 })
-export class RegisterComponent {
+export class LoginComponent {
   form: FormGroup;
 
   constructor(private fb: FormBuilder, private authService: AuthService) {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required]]
     });
   }
 
-  register() {
+  login() {
     if (this.form.valid) {
       const { email, password } = this.form.value;
-      this.authService.register(email, password)
-        .then(() => alert('Usuario registrado correctamente'))
+      this.authService.login(email, password)
+        .then(() => alert('Sesión iniciada correctamente'))
         .catch((err: any) => alert(`Error: ${err.message}`));
     }
   }
