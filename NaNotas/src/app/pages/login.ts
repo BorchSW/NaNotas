@@ -25,7 +25,11 @@ export class LoginComponent {
     if (this.form.valid) {
       const { email, password } = this.form.value;
       this.authService.login(email, password)
-        .then(() => alert('Sesión iniciada correctamente'))
+        .then(() => {
+          alert('Sesión iniciada correctamente');
+          window.location.href = '/home';
+        })
+
         .catch((err: any) => alert(`Error: ${err.message}`));
     }
   }
